@@ -200,12 +200,7 @@ class NerProcessor(DataProcessor):
 
 class NerChineseProcessor(DataProcessor):
 
-    def __init__(self):
-        self.language = 'zh'
-
-    def _read_data(cls, input_file):
-        
-    
+  
     def get_train_examples(self, data_dir):
         return self._create_example(
             self._read_data(os.path.join(data_dir, "train.txt")), "train"
