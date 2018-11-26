@@ -145,7 +145,7 @@ class DataProcessor(object):
     @classmethod
     def _read_data(cls, input_file):
         """Reads a BIO data."""
-        with open(input_file) as f:
+        with open(input_file, encoding='utf8') as f:
             lines = []
             words = []
             labels = []
@@ -156,7 +156,7 @@ class DataProcessor(object):
                 if contends.startswith("-DOCSTART-"):
                     words.append('')
                     continue
-                if len(contends) == 0 and words[-1] == '.':
+                if len(contends) == 0 and words[-1] in ['。', '？', '！', '.']: # add chinese clause punctuation
                     l = ' '.join([label for label in labels if len(label) > 0])
                     w = ' '.join([word for word in words if len(word) > 0])
                     lines.append([l, w])
@@ -199,6 +199,13 @@ class NerProcessor(DataProcessor):
 
 
 class NerChineseProcessor(DataProcessor):
+
+    def __init__(self):
+        self.language = 'zh'
+
+    def _read_data(cls, input_file):
+        
+    
     def get_train_examples(self, data_dir):
         return self._create_example(
             self._read_data(os.path.join(data_dir, "train.txt")), "train"
@@ -540,7 +547,7 @@ def main(_):
 
     if FLAGS.do_train:
         train_examples = processor.get_train_examples(FLAGS.data_dir)
-        print(len(train_examples)) # 输出训练集规模
+        #print(len(train_examples)) # 输出训练集规模
         num_train_steps = int(
             len(train_examples) / FLAGS.train_batch_size * FLAGS.num_train_epochs)
         num_warmup_steps = int(num_train_steps * FLAGS.warmup_proportion)
