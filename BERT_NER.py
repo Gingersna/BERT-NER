@@ -201,21 +201,21 @@ class NerProcessor(DataProcessor):
 class NerChineseProcessor(DataProcessor):
     def get_train_examples(self, data_dir):
         return self._create_example(
-            self._read_data(os.path.join(data_dir, "train.txt")), "train"
+            self._read_data(os.path.join(data_dir, "train")), "train"
         )
 
     def get_dev_examples(self, data_dir):
         return self._create_example(
-            self._read_data(os.path.join(data_dir, "dev.txt")), "dev"
+            self._read_data(os.path.join(data_dir, "dev")), "dev"
         )
 
     def get_test_examples(self,data_dir):
         return self._create_example(
-            self._read_data(os.path.join(data_dir, "test.txt")), "test")
+            self._read_data(os.path.join(data_dir, "test")), "test")
 
 
     def get_labels(self):
-        return ["O", "I-ORG", "I-LOC", "I-PER", "B-LOC", "B-ORG","B-LOC","[CLS]","[SEP]"]
+        return ["O", "B-ORG", "I-ORG","B-LOC", "I-LOC", "B-PER", "I-PER", "[CLS]", "[SEP]"]
 
     def _create_example(self, lines, set_type):
         examples = []
