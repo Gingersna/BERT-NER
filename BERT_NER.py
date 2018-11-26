@@ -217,7 +217,7 @@ class NerChineseProcessor(DataProcessor):
 
 
     def get_labels(self):
-        return ["O", "B-ORG", "I-ORG","B-LOC", "I-LOC", "B-PER", "I-PER", "[CLS]", "[SEP]"]
+        return ["O", "B-ORG", "I-ORG","B-LOC", "I-LOC", "B-PER", "I-PER", "[CLS]", "[SEP]", "X"]
 
     def _create_example(self, lines, set_type):
         examples = []
